@@ -8,15 +8,11 @@ environment:
 install:
   - ps: Install-Product node 20
   - cmd: mkdir C:\Users\appveyor\AppData\Roaming\npm
-  - cmd: node -v
-  - cmd: npm -v
   - npm cache clean --force
   - npm ci
 
 build_script:
-  - cmd: dir
-  - npx webpack --mode production --no-cache
-  - cmd: dir dist
+  - npx webpack --mode production
 
 deploy_script:
   - ps: |
