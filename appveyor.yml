@@ -7,9 +7,11 @@ environment:
 
 install:
   - ps: Install-Product node 20
-  - cmd: mkdir C:\Users\appveyor\AppData\Roaming\npm
   - npm cache clean --force
   - npm ci
+  # Для отладки можно временно раскомментировать:
+  - dir node_modules
+  - dir node_modules\.bin
 
 build_script:
   - npm run build

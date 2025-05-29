@@ -5,7 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "start": "webpack serve --open",
-    "build": "webpack --mode production"
+    "build": "npx webpack --mode production"
   },
   "keywords": [],
   "license": "ISC",
