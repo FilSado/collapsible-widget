@@ -12,7 +12,7 @@ install:
   - npm ci
 
 build_script:
-  - npx webpack --mode production
+  - npm run build
 
 deploy_script:
   - ps: |
