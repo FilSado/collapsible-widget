@@ -12,7 +12,7 @@ install:
   - npm ci
 
 build_script:
-  - npm run build
+  - cmd: node_modules\.bin\webpack --mode production
 
 deploy_script:
   - ps: |
