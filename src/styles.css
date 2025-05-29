@@ -1,0 +1,29 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background: #fafafa;
+}
+
+.collapsible-button {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.collapsible-button:hover {
+  background-color: #0056b3;
+}
+
+.collapsible-content {
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 12px;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgb(0 0 0 / 0.1);
+}
