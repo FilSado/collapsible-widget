@@ -6,13 +6,11 @@ environment:
   NODE_ENV: 'production'
 
 install:
-  # Установка Node.js 20 через встроенную команду AppVeyor
   - ps: Install-Product node 20
   - npm cache clean --force
   - npm ci
-  # Для отладки можно временно раскомментировать:
   - ps: dir node_modules
-  - ps: dir node_modules\.bin
+  - ps: if (Test-Path node_modules\.bin) { dir node_modules\.bin } else { Write-Host ".bin folder not found" }
 
 build_script:
   - npm run build
