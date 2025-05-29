@@ -1,5 +1,7 @@
 version: 1.0.{build}
 
+image: Visual Studio 2022
+
 environment:
   NODE_ENV: 'production'
 
@@ -9,7 +11,7 @@ install:
   - npm install
 
 build_script:
-  - npm run build -- --no-cache
+  - npx webpack --mode production --no-cache
 
 deploy_script:
   - ps: |
