@@ -6,18 +6,10 @@ cache:
   - node_modules: false
 
 build_script:
-  # Диагностика версий и окружения
-  - cmd: node -v
-  - cmd: npm -v
-  - cmd: set
-
-  # Очистка старых артефактов и кэша
   - cmd: rmdir /s /q node_modules
   - cmd: del /f /q package-lock.json
   - cmd: rmdir /s /q dist
   - cmd: npm cache clean --force
-
-  # Установка зависимостей и сборка
   - cmd: npm install
   - cmd: npm run build -- --no-cache
 
