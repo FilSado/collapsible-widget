@@ -20,8 +20,8 @@ deploy_script:
       git clone https://github.com/FilSado/collapsible-widget.git deploy_repo
       cd deploy_repo
       git checkout gh-pages || git checkout --orphan gh-pages
-      Remove-Item -Recurse -Force *
+      Remove-Item -Recurse -Force * -Exclude .git
       Copy-Item -Recurse -Force ../dist/* .
-      git add .
-      git commit -m "Deploy to GitHub Pages - build $(appveyor_build_version)"
+      git add -A
+      git commit -m "Deploy to GitHub Pages - build $env:APPVEYOR_BUILD_VERSION"
       git push origin gh-pages --force
