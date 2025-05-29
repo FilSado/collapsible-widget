@@ -2,9 +2,24 @@ version: 1.0.{build}
 
 image: Visual Studio 2022
 
+cache:
+  - node_modules: false
+
 build_script:
+  # Диагностика версий и окружения
+  - cmd: node -v
+  - cmd: npm -v
+  - cmd: set
+
+  # Очистка старых артефактов и кэша
+  - cmd: rmdir /s /q node_modules
+  - cmd: del /f /q package-lock.json
+  - cmd: rmdir /s /q dist
+  - cmd: npm cache clean --force
+
+  # Установка зависимостей и сборка
   - cmd: npm install
-  - cmd: npm run build
+  - cmd: npm run build -- --no-cache
 
 deploy_script:
   - ps: |
@@ -13,9 +28,8 @@ deploy_script:
       git clone https://github.com/FilSado/collapsible-widget.git deploy_repo
       cd deploy_repo
       git checkout gh-pages || git checkout --orphan gh-pages
-      Remove-Item -Recurse -Force *  # Очистить ветку gh-pages
+      Remove-Item -Recurse -Force *
       Copy-Item -Recurse -Force ../dist/* .
       git add .
       git commit -m "Deploy to GitHub Pages - build $(appveyor_build_version)"
       git push origin gh-pages --force
-
