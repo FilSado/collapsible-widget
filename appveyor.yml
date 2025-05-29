@@ -7,9 +7,9 @@ environment:
 
 install:
   - ps: Install-Product node 20
-  - cmd: mkdir C:\Users\appveyor\AppData\Roaming\npm
   - npm cache clean --force
   - npm install
+  - npm install --save-dev webpack-cli
 
 build_script:
   - npx webpack --mode production --no-cache
