@@ -1,27 +1,22 @@
 version: 1.0.{build}
 
-image: Visual Studio 2022
+environment:
+  NODE_ENV: 'production'
 
-cache:
-  - node_modules: false
+install:
+  - ps: Install-Product node 20
+  - npm cache clean --force
+  - npm install
 
 build_script:
-  - cmd: rmdir /s /q node_modules
-  - cmd: del /f /q package-lock.json
-  - cmd: rmdir /s /q dist
-  - cmd: npm cache clean --force
-  - cmd: npm install
-  - cmd: npm run build -- --no-cache
+  - npm run build -- --no-cache
 
 deploy_script:
   - ps: |
       git config --global user.email "evgenia.maksimovna00@gmail.com"
       git config --global user.name "Евгения"
-      git clone https://github.com/FilSado/collapsible-widget.git deploy_repo
-      cd deploy_repo
-      git checkout gh-pages || git checkout --orphan gh-pages
-      Remove-Item -Recurse -Force * -Exclude .git
-      Copy-Item -Recurse -Force ../dist/* .
-      git add -A
-      git commit -m "Deploy to GitHub Pages - build $env:APPVEYOR_BUILD_VERSION"
-      git push origin gh-pages --force
+      npx gh-pages -d dist -r https://%GITHUB_TOKEN%@github.com/FilSado/collapsible-widget.git
+
+artifacts:
+  - path: dist
+    name: dist
