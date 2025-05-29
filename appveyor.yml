@@ -5,15 +5,19 @@ image: Visual Studio 2022
 environment:
   NODE_ENV: 'production'
 
+  
 install:
   - ps: Install-Product node 20
   - npm cache clean --force
   - npm ci
+  - ps: echo $env:PATH
+  - ps: node -v
+  - ps: npm -v
   - ps: dir node_modules
   - ps: if (Test-Path node_modules\.bin) { dir node_modules\.bin } else { Write-Host ".bin folder not found" }
 
 build_script:
-  - npm run build
+  - npx webpack --mode production
 
 deploy_script:
   - ps: |
