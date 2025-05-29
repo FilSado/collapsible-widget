@@ -3,17 +3,20 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-  mode: 'development', // можно поменять на 'production' перед деплоем
+  mode: 'development', // Для деплоя поменяй на 'production'
   entry: './src/index.js',
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    clean: true,
+    clean: true, // Очищает dist перед сборкой (альтернатива CleanWebpackPlugin)
   },
   devServer: {
-    static: './dist',
+    static: {
+      directory: path.resolve(__dirname, 'dist'),
+    },
     open: true,
     port: 8080,
+    hot: true, // Включить горячую перезагрузку (опционально)
   },
   module: {
     rules: [
@@ -21,12 +24,10 @@ module.exports = {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
-
       {
         test: /\.json$/,
-        type: 'json'
-      }
-
+        type: 'json', 
+      },
     ],
   },
   plugins: [
@@ -44,7 +45,8 @@ module.exports = {
             <div id="app"></div>
           </body>
         </html>
-      `
+      `,
     }),
   ],
 };
+
